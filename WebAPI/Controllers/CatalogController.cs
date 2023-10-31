@@ -1,8 +1,9 @@
 using Application.ServiceInterfaces;
 using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
-
+using System.Net;
 
 namespace WebAPI.Controllers
 {
@@ -24,8 +25,25 @@ namespace WebAPI.Controllers
         [Route("Category/GetCategory/{categoryId}")]
         public async Task<IActionResult> GetCategory(int categoryId)
         {
-            var result = await _serviceManager.CategoryService.GetCategory(categoryId);
-            return Ok(result);
+            if (categoryId <= 0)
+            {
+                return BadRequest("Invalid Category Id");
+            }
+
+            try
+            {
+                var result = await _serviceManager.CategoryService.GetCategory(categoryId);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, ex.Message);
+                throw new System.Web.Http.HttpResponseException(new HttpResponseMessage()
+                {
+                    StatusCode = HttpStatusCode.InternalServerError,
+                    ReasonPhrase = ex.Message
+                });
+            }
         }
 
         // GET: api/<CatalogController>
@@ -33,8 +51,20 @@ namespace WebAPI.Controllers
         [Route("Category/GetCategories")]
         public async Task<IActionResult> GetCategories()
         {
-            var result = await _serviceManager.CategoryService.GetAllCategories();
-            return Ok(result);
+            try
+            {
+                var result = await _serviceManager.CategoryService.GetAllCategories();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, ex.Message);
+                throw new System.Web.Http.HttpResponseException(new HttpResponseMessage()
+                {
+                    StatusCode = HttpStatusCode.InternalServerError,
+                    ReasonPhrase = ex.Message
+                });
+            }
         }
 
         // POST api/<CatalogController>
@@ -42,8 +72,20 @@ namespace WebAPI.Controllers
         [Route("Category/AddCategory")]
         public async Task<IActionResult> AddCategory([FromBody] Category entity)
         {
-            var result = await _serviceManager.CategoryService.AddCategory(entity);
-            return Ok(result);
+            try
+            {
+                var result = await _serviceManager.CategoryService.AddCategory(entity);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, ex.Message);
+                throw new System.Web.Http.HttpResponseException(new HttpResponseMessage()
+                {
+                    StatusCode = HttpStatusCode.InternalServerError,
+                    ReasonPhrase = ex.Message
+                });
+            }
         }
 
         // POST api/<CatalogController>
@@ -51,16 +93,40 @@ namespace WebAPI.Controllers
         [Route("Category/UpdateCategory")]
         public async Task<IActionResult> UpdateCategory([FromBody] Category entity)
         {
-            var result = await _serviceManager.CategoryService.UpdateCategory(entity);
-            return Ok(result);
+            try
+            {
+                var result = await _serviceManager.CategoryService.UpdateCategory(entity);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, ex.Message);
+                throw new System.Web.Http.HttpResponseException(new HttpResponseMessage()
+                {
+                    StatusCode = HttpStatusCode.InternalServerError,
+                    ReasonPhrase = ex.Message
+                });
+            }
         }
 
         // DELETE api/<CatalogController>/delete/5
         [HttpDelete("Category/DeleteCategory/{categoryId}")]
         public async Task<IActionResult> DeleteCategory(int? categoryId)
         {
-            var result = await _serviceManager.CategoryService.RemoveCategory(categoryId);
-            return Ok(result);
+            try
+            {
+                var result = await _serviceManager.CategoryService.RemoveCategory(categoryId);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, ex.Message);
+                throw new System.Web.Http.HttpResponseException(new HttpResponseMessage()
+                {
+                    StatusCode = HttpStatusCode.InternalServerError,
+                    ReasonPhrase = ex.Message
+                });
+            }
         }
 
         // GET: api/<CatalogController>
@@ -68,8 +134,25 @@ namespace WebAPI.Controllers
         [Route("Item/GetItem/{itemId}")]
         public async Task<IActionResult> GetItem(int itemId)
         {
-            var result = await _serviceManager.ItemService.GetItem(itemId);
-            return Ok(result);
+            if (itemId <= 0)
+            {
+                return BadRequest("Invalid Item Id");
+            }
+
+            try
+            {
+                var result = await _serviceManager.ItemService.GetItem(itemId);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, ex.Message);
+                throw new System.Web.Http.HttpResponseException(new HttpResponseMessage()
+                {
+                    StatusCode = HttpStatusCode.InternalServerError,
+                    ReasonPhrase = ex.Message
+                });
+            }
         }
 
         // GET: api/<CatalogController>
@@ -77,8 +160,25 @@ namespace WebAPI.Controllers
         [Route("Item/GetItem/{categoryId}")]
         public async Task<IActionResult> GetItems(int categoryId)
         {
-            var result = await _serviceManager.ItemService.GetItems(categoryId);
-            return Ok(result);
+            if (categoryId <= 0)
+            {
+                return BadRequest("Invalid Category Id");
+            }
+
+            try
+            {
+                var result = await _serviceManager.ItemService.GetItems(categoryId);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, ex.Message);
+                throw new System.Web.Http.HttpResponseException(new HttpResponseMessage()
+                {
+                    StatusCode = HttpStatusCode.InternalServerError,
+                    ReasonPhrase = ex.Message
+                });
+            }
         }
 
         // POST api/<CatalogController>
@@ -86,8 +186,20 @@ namespace WebAPI.Controllers
         [Route("Item/AddItem")]
         public async Task<IActionResult> AddItem([FromBody] Item entity)
         {
-            var result = await _serviceManager.ItemService.AddItem(entity);
-            return Ok(result);
+            try
+            {
+                var result = await _serviceManager.ItemService.AddItem(entity);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, ex.Message);
+                throw new System.Web.Http.HttpResponseException(new HttpResponseMessage()
+                {
+                    StatusCode = HttpStatusCode.InternalServerError,
+                    ReasonPhrase = ex.Message
+                });
+            }
         }
 
         // POST api/<CatalogController>
@@ -95,16 +207,44 @@ namespace WebAPI.Controllers
         [Route("Item/UpdateItem")]
         public async Task<IActionResult> UpdateItem([FromBody] Item entity)
         {
-            var result = await _serviceManager.ItemService.UpdateItem(entity);
-            return Ok(result);
+            try
+            {
+                var result = await _serviceManager.ItemService.UpdateItem(entity);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, ex.Message);
+                throw new System.Web.Http.HttpResponseException(new HttpResponseMessage()
+                {
+                    StatusCode = HttpStatusCode.InternalServerError,
+                    ReasonPhrase = ex.Message
+                });
+            }
         }
 
         // DELETE api/<CatalogController>/delete/5
         [HttpDelete("Item/DeleteItem/{itemId}")]
         public async Task<IActionResult> DeleteItem(int? itemId)
         {
-            var result = await _serviceManager.ItemService.RemoveItem(itemId);
-            return Ok(result);
+            if (itemId <= 0)
+            {
+                return BadRequest("Invalid Item Id");
+            }
+            try
+            {
+                var result = await _serviceManager.ItemService.RemoveItem(itemId);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, ex.Message);
+                throw new System.Web.Http.HttpResponseException(new HttpResponseMessage()
+                {
+                    StatusCode = HttpStatusCode.InternalServerError,
+                    ReasonPhrase = ex.Message
+                });
+            }
         }
     }
 }

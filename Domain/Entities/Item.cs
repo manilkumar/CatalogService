@@ -9,8 +9,7 @@ namespace Domain.Entities
 {
     public class Item
     {
-        [Required]
-        public int CategoryId { get; set; }
+        public Category Category { get; set; }
 
         [Required]
         public int Id { get; set; }
